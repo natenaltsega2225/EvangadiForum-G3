@@ -1,6 +1,6 @@
 // db connection
 
-const dbConnection = require("../db/dbConfig.jsx");
+const dbConnection = require("../db/dbConfig.jsx")
 const bcrypt=require('bcrypt')
 const {StatusCodes}=require('http-status-codes')
 const jwt=require('jsonwebtoken')
@@ -8,7 +8,7 @@ const jwt=require('jsonwebtoken')
 
 async function register(req, res) {
 
-  const { username, firstName, lastName, email, password } = req.body;
+  const { username, firstName, lastName, email, password } = req.body
 
   if (!email || !password || !firstName || !lastName || !username) {
   return res
