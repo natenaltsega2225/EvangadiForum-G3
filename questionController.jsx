@@ -1,6 +1,6 @@
 const dbConnection = require("../db/dbConfig.jsx");
 const { StatusCodes } = require("http-status-codes");
-
+const jwt = require("jsonwebtoken");
 // Function to create a new question
 async function createQuestion(req, res) {
   const { userid, title, description, tag } = req.body;
