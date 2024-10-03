@@ -2,41 +2,54 @@ const express = require("express");
 const app = express();
 const port = 5500;
 
-//This is a comment added by Mesgana
-//Additional code per NAti's request
+// const cors = require("cors");
+// require("dotenv").config();
+// app.use(cors());
 
-// Database connection
+//db connection
 const dbConnection = require("./db/dbConfig.jsx");
 
-// User routes middleware
-const userRoutes = require("./routes/userRoute.jsx"); // Include .jsx here
+//user routes middleware file
+const userRoutes = require("./routes/userRoute.jsx");
+const questionRoute = require("./routes/questionRoute.jsx");
+const answerRoute = require("./routes/answerRoute.jsx");
+const installRoute = require("./routes/installRoute.jsx");
+const authMiddleware = require("./middleware/authMiddleware.jsx");
 
-// Middleware to parse JSON
-app.use(express.json()); // Add this line
+//json middleware to extract to json data
+app.use(express.json());
+
+app.use("/", installRoute);
 
 //user routes middleware
-app.use("/api/users", userRoutes);
-console.log("User routes registered at /api/users");
+app.use("/api/users", authMiddleware, userRoutes);
+//question route middleware
+app.use("/api/questions", authMiddleware, questionRoute);
+//answer route middleware
+app.use("/api/answers", authMiddleware, answerRoute);
 
-// Questions routes middleware
-const questionRoutes = require("./routes/questionRoute.jsx");
-app.use("/api/questions", questionRoutes);
-console.log("Question routes registered at /api/questions");
+// const port = 3333;
+// port = process.env.SERVER_PORT || 5500;
+// app.use((req, res, next) => {
+//     res.status(404).json({ msg: 'Resource not found error.' });
+// });
 
-// Answers routes middleware
-const answerRoutes = require("./routes/answerRoute.jsx");
-app.use("/api/answers", answerRoutes);
-console.log("Answer routes registered at /api/answers");
-
+app.get("/", (req, res) => {
+  res.send("Api is working");
+});
+// Global error handler
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ msg: "Something went wrong.", error: err.message });
+});
 async function start() {
   try {
-    const result = await dbConnection.execute("SELECT 'test'");
+    const result = await dbConnection.execute("select 'test'");
     await app.listen(port);
-    console.log("Database connection established");
-    console.log(`Listening on ${port}`);
+    console.log("database connection established");
+    console.log(`listening on ${port}`);
   } catch (error) {
     console.log(error.message);
   }
 }
-
 start();
