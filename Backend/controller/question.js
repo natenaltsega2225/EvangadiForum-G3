@@ -1,6 +1,6 @@
 const { StatusCodes } = require("http-status-codes");
 
-const dbconnection = require("../db/dbConfig.jsx");
+const dbconnection = require("../db/dbConfig");
 
 async function createQuestion(req, res) {
   const { userId, questionId, title, description, tag } = req.body;

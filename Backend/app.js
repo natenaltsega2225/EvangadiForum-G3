@@ -7,14 +7,14 @@ const port = 5500;
 // app.use(cors());
 
 //db connection
-const dbConnection = require("./db/dbConfig.jsx");
+const dbConnection = require("./db/dbConfig.js");
 
 //user routes middleware file
-const userRoutes = require("./routes/userRoute.jsx");
-const questionRoute = require("./routes/questionRoute.jsx");
-const answerRoute = require("./routes/answerRoute.jsx");
-const installRoute = require("./routes/installRoute.jsx");
-const authMiddleware = require("./middleware/authMiddleware.jsx");
+const userRoutes = require("./routes/userRoute.js");
+const questionRoute = require("./routes/questionRoute.js");
+const answerRoute = require("./routes/answerRoute.js");
+const installRoute = require("./routes/installRoute.js");
+const authMiddleware = require("./middleware/authMiddleware.js");
 
 //json middleware to extract to json data
 app.use(express.json());

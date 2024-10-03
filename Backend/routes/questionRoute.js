@@ -1,14 +1,14 @@
 const express = require("express");
 const router = express.Router();
 
-const authMiddleware = require("../middleware/authMiddleware.jsx");
+const authMiddleware = require("../middleware/authMiddleware.js");
 const {
   createQuestion,
   allQuestions,
   deleteQuestion,
   updateQuestion,
   getQuestionDetail,
-} = require("../controller/question.jsx");
+} = require("../controller/question.js");
 
 // use get for getting question detail
 router.get("/detail/:questionId", authMiddleware, getQuestionDetail);

@@ -1,5 +1,5 @@
 const express = require("express");
-const dbconnection = require("../db/dbConfig.jsx");
+const dbconnection = require("../db/dbConfig.js");
 const router = express.Router();
 
 // Create the answers table
