@@ -1,9 +1,11 @@
-const { StatusCodes } = require("http-status-codes");
-
 const dbconnection = require("../db/dbConfig");
+const { StatusCodes } = require("http-status-codes");
+const { v4: uuidv4 } = require("uuid"); // Universally unique
+
+const { request } = require("express");
 
 async function createQuestion(req, res) {
-  const { userId, questionId, title, description, tag } = req.body;
+  const { title, description, tag } = req.body;
 
   if (!tag || !title || !description) {
     return res
@@ -12,9 +14,11 @@ async function createQuestion(req, res) {
   }
 
   try {
+    const questionid = uuidv4();
+    const userid = req.user.userid;
     await dbconnection.query(
       "INSERT INTO questions(questionid,userid,title,description,tag) VALUES(?,?,?,?,?)",
-      [questionId, userId, title, description, tag]
+      [questionid, userid, title, description, tag]
     );
 
     return res
@@ -28,117 +32,120 @@ async function createQuestion(req, res) {
   }
 }
 
-async function updateQuestion(req, res) {
-  const { questionid, title, description, tag } = req.body;
+// async function updateQuestion(req, res) {
+//   const { questionid, title, description, tag } = req.body;
 
-  if (!questionid || !title || !description || !tag) {
-    return res
-      .status(StatusCodes.BAD_REQUEST)
-      .json({ msg: "Please provide all required information" });
-  }
+//   if (!questionid || !title || !description || !tag) {
+//     return res
+//       .status(StatusCodes.BAD_REQUEST)
+//       .json({ msg: "Please provide all required information" });
+//   }
 
-  try {
-    const query =
-      "UPDATE questions SET title=?, description=?, tag=? WHERE questionid=?";
-    const result = await dbConnectionPromise.query(query, [
-      title,
-      description,
-      tag,
-      questionid,
-    ]);
+//   try {
+//     const query =
+//       "UPDATE questions SET title=?, description=?, tag=? WHERE questionid=?";
+//     const result = await dbconnectionPromise.query(query, [
+//       title,
+//       description,
+//       tag,
+//       questionid,
+//     ]);
 
-    if (result) {
-      return res
-        .status(StatusCodes.OK)
-        .json({ msg: "Question updated successfully" });
-    } else {
-      return res
-        .status(StatusCodes.NOT_FOUND)
-        .json({ msg: "Question not found" });
-    }
-  } catch (error) {
-    console.error("Error updating question:", error);
-    return res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json({ msg: "Something went wrong" });
-  }
-}
+//     if (result) {
+//       return res
+//         .status(StatusCodes.OK)
+//         .json({ msg: "Question updated successfully" });
+//     } else {
+//       return res
+//         .status(StatusCodes.NOT_FOUND)
+//         .json({ msg: "Question not found" });
+//     }
+//   } catch (error) {
+//     console.error("Error updating question:", error);
+//     return res
+//       .status(StatusCodes.INTERNAL_SERVER_ERROR)
+//       .json({ msg: "Something went wrong" });
+//   }
+// }
 
-async function deleteQuestion(req, res) {
-  const { questionid } = req.body;
+// async function deleteQuestion(req, res) {
+//   const { questionid } = req.body;
 
-  if (!questionid) {
-    return res
-      .status(StatusCodes.BAD_REQUEST)
-      .json({ msg: "Please provide question ID" });
-  }
+//   if (!questionid) {
+//     return res
+//       .status(StatusCodes.BAD_REQUEST)
+//       .json({ msg: "Please provide question ID" });
+//   }
 
-  try {
-    const query = "DELETE FROM questions WHERE questionid=?";
-    const result = await dbConnectionPromise.query(query, [questionid]);
+//   try {
+//     const query = "DELETE FROM questions WHERE questionid=?";
+//     const result = await dbconnectionPromise.query(query, [questionid]);
 
-    if (result) {
-      return res
-        .status(StatusCodes.OK)
-        .json({ msg: "Question deleted successfully" });
-    } else {
-      return res
-        .status(StatusCodes.NOT_FOUND)
-        .json({ msg: "Question not found" });
-    }
-  } catch (error) {
-    console.error("Error deleting question:", error);
-    return res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json({ msg: "Something went wrong" });
-  }
-}
+//     if (result) {
+//       return res
+//         .status(StatusCodes.OK)
+//         .json({ msg: "Question deleted successfully" });
+//     } else {
+//       return res
+//         .status(StatusCodes.NOT_FOUND)
+//         .json({ msg: "Question not found" });
+//     }
+//   } catch (error) {
+//     console.error("Error deleting question:", error);
+//     return res
+//       .status(StatusCodes.INTERNAL_SERVER_ERROR)
+//       .json({ msg: "Something went wrong" });
+//   }
+// }
 
 async function allQuestions(req, res) {
   try {
-    const query = `
-            SELECT q.questionid, q.title, q.description, q.id, u.username
-            FROM questions q
-            JOIN users u ON q.userid = u.userid
-            ORDER BY q.id DESC;
-    `; //u and q are aliases.
-    const result = await dbconnection.query(query);
-
-    return res.status(StatusCodes.OK).json({ data: result[0] });
+    const [questions] = await dbconnection.query("SELECT * FROM questions");
+    if (questions.length == 0) {
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ msg: "there are no questions in the database" });
+    }
+    //     if(answers.length==0){
+    //             return res.status(StatusCodes.NOT_FOUND).json({ msg : "No answers found for the requested question"})
+    // }
+    return res
+      .status(StatusCodes.OK)
+      .json({ msg: "All questions appeared", questions });
   } catch (error) {
-    console.error("Error fetching question details with usernames:", error);
+    console.log(error.message);
     return res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json({ msg: "Something went wrong, try again later" });
+      .json({ msg: "Something went wrong,Try again later" });
   }
 }
 async function getQuestionDetail(req, res) {
-  const questionId = req.params.questionId;
-
+  const { question_id } = req.params;
   try {
-    const query =
-      "SELECT q.*,u.username FROM questions q INNER JOIN users u ON q.userid=u.userid WHERE questionid = ?";
-    const result = await dbConnectionPromise.query(query, [questionId]);
-
-    if (result.length > 0) {
-      return res.status(StatusCodes.OK).json(result[0]);
-    } else {
+    const [singleQuestion] = await dbconnection.query(
+      "SELECT * FROM questions WHERE id =?",
+      [question_id]
+    );
+    if (singleQuestion.length == 0) {
       return res
         .status(StatusCodes.NOT_FOUND)
-        .json({ msg: "Question not found" });
+        .json({ msg: "The question you are looking for could not be found." });
     }
+    return res
+      .status(StatusCodes.OK)
+      .json({ msg: "Here is the question", singleQuestion });
   } catch (error) {
-    console.error("Error fetching question detail:", error);
+    console.log(error.message);
     return res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json({ msg: "Something went wrong" });
+      .json({ msg: "Something went wrong,Try again later" });
   }
 }
 
 module.exports = {
   createQuestion,
-  deleteQuestion,
-  updateQuestion,
+  // deleteQuestion,
+  // updateQuestion,
   allQuestions,
   getQuestionDetail,
 };

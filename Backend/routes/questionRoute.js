@@ -5,24 +5,24 @@ const authMiddleware = require("../middleware/authMiddleware.js");
 const {
   createQuestion,
   allQuestions,
-  deleteQuestion,
-  updateQuestion,
+  // deleteQuestion,
+  // updateQuestion,
   getQuestionDetail,
 } = require("../controller/question.js");
 
-// use get for getting question detail
-router.get("/detail/:questionId", authMiddleware, getQuestionDetail);
-
 // Use POST for creating a new question
-router.post("/create-question", authMiddleware, createQuestion);
+router.post("/", authMiddleware, createQuestion);
+
+// use get for getting single question detail
+router.get("/:question_id", authMiddleware, getQuestionDetail);
 
 // Use GET for retrieving all questions
-router.get("/all-questions", authMiddleware, allQuestions);
+router.get("/", authMiddleware, allQuestions);
 
 // Use POST for updating a question
-router.post("/update-question", authMiddleware, updateQuestion);
+// router.post("/update-question", authMiddleware, updateQuestion);
 
-// Use POST for deleting a question
-router.post("/delete-question", authMiddleware, deleteQuestion);
+// // Use POST for deleting a question
+// router.post("/delete-question", authMiddleware, deleteQuestion);
 
 module.exports = router;

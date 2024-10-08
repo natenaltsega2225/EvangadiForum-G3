@@ -1,14 +1,15 @@
 const express = require("express");
 const router = express.Router();
 
-const authMiddleware = require("../middleware/authMiddleware.js")
-const {
-  createAnswer,
-  GetAnswersByQuestionId,
-} = require("../controller/answer.js")
+// Authentication middleware
+const authMiddleware = require("../middleware/authMiddleware");
 
-router.post("/create", authMiddleware, createAnswer);
+// Answer controllers
+const { getAnswer, postAnswer } = require("../controller/answer.js");
 
-router.get("/all-answers/:questionId", authMiddleware, GetAnswersByQuestionId);
+// Route to post an answer
+router.post("/", authMiddleware, postAnswer);
+// Route to get an answer
+router.get("/:questionid", authMiddleware, getAnswer);
 
 module.exports = router;

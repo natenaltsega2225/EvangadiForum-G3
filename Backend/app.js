@@ -1,10 +1,10 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const port = 5500;
 
-// const cors = require("cors");
-// require("dotenv").config();
-// app.use(cors());
+const cors = require("cors");
+app.use(cors());
 
 //db connection
 const dbConnection = require("./db/dbConfig.js");
@@ -22,11 +22,11 @@ app.use(express.json());
 app.use("/", installRoute);
 
 //user routes middleware
-app.use("/api/users", authMiddleware, userRoutes);
+app.use("/api/users", userRoutes);
 //question route middleware
-app.use("/api/questions", authMiddleware, questionRoute);
+app.use("/api/question", questionRoute);
 //answer route middleware
-app.use("/api/answers", authMiddleware, answerRoute);
+app.use("/api/answer", answerRoute);
 
 // const port = 3333;
 // port = process.env.SERVER_PORT || 5500;

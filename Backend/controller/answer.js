@@ -1,19 +1,20 @@
 const dbconnection = require("../db/dbConfig");
 const { StatusCodes } = require("http-status-codes");
 
-async function createAnswer(req, res) {
-  const { answer, questionid, userid } = req.body;
+async function postAnswer(req, res) {
+  const { answer, questionid } = req.body;
 
-  if (!answer || !questionid || !userid) {
+  if (!answer || !questionid) {
     return res
       .status(StatusCodes.BAD_REQUEST)
       .json({ msg: "Please provide all required value. " });
   }
 
   try {
+    const userid = req.user.userid;
     await dbconnection.query(
-      "INSERT INTO answers(userid,questionid,answer) VALUES(?,?,?)",
-      [userid, questionid, answer]
+      "INSERT INTO answers( questionid, userid, answer) VALUES(?,?,?)",
+      [questionid, userid, answer]
     );
     return res
       .status(StatusCodes.CREATED)
@@ -25,10 +26,10 @@ async function createAnswer(req, res) {
       .json({ msg: "Something went wrong try again later" });
   }
 }
-async function GetAnswersByQuestionId(req, res) {
+async function getAnswer(req, res) {
   // const { questionid } = req.body;
-  const questionId = req.params.questionId;
-  if (!questionId) {
+  const { questionid } = req.params;
+  if (!questionid) {
     return res
       .status(StatusCodes.BAD_REQUEST)
       .json({ msg: "Please enter questionid " });
@@ -37,7 +38,7 @@ async function GetAnswersByQuestionId(req, res) {
   try {
     const response = await dbconnection.query(
       "SELECT answers.answer, users.username FROM answers  INNER JOIN users ON answers.userid = users.userid WHERE answers.questionid = ? ORDER BY answers.answerid DESC",
-      [questionId]
+      [questionid]
     );
     return res.status(StatusCodes.OK).json({ data: response[0] });
   } catch (error) {
@@ -45,4 +46,4 @@ async function GetAnswersByQuestionId(req, res) {
   }
 }
 
-module.exports = { createAnswer, GetAnswersByQuestionId };
+module.exports = { postAnswer, getAnswer };

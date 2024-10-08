@@ -1,6 +1,7 @@
 const { StatusCodes } = require("http-status-codes");
 const jwt = require("jsonwebtoken");
 
+
 function authMiddleware(req, res, next) {
   const authHeader = req.headers.authorization;
   console.log(authHeader);
@@ -13,7 +14,7 @@ function authMiddleware(req, res, next) {
     const token = authHeader.split(" ")[1];
     const { username, userid } = jwt.verify(
       token,
-      "MkZLgWzdY4i4Hz6KMKixrtKeX0UTom7Q6yyy76r"
+      process.env.JWT_SECRET
     );
     req.user = { username, userid };
     next();

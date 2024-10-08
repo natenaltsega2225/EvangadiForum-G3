@@ -8,10 +8,10 @@ const authMiddleware = require("../middleware/authMiddleware.js")
 const { register, login, checkUser } = require("../controller/userController.js")
 
 //register route
-router.post("/register", authMiddleware, register);
+router.post("/register", register);
 
 //login route
-router.post("/login", authMiddleware, login);
+router.post("/login", login);
 
 // check user
 router.get("/check", authMiddleware, checkUser);

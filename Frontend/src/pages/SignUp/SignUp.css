@@ -1,0 +1,89 @@
+* .signup__home {
+  background-image: url("https://www.evangadi.com/themes/humans/assets/images/misc/bg-svg-f.svg");
+  background-size: cover;
+  background-color: #f8f8f8;
+  width: 100%;
+  
+}
+
+.signup {
+  width: 100%;
+  display: flex;
+}
+.signup__container {
+  margin-left: 15%;
+  text-align: center;
+  padding-top: 10px;
+  width: 100%;
+  margin-bottom: 35px;
+}
+.signup__title {
+  margin-top: 50px;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgb(158 158 158 / 90%);
+  border-radius: 10px;
+  position: relative;
+  top: 0;
+}
+
+.signup__title h2 {
+  padding-top: 60px;
+}
+
+p a {
+  color: #db7202;
+}
+.signup__form input {
+  height: 40px;
+ 
+  border: 1.9px solid #ddd;
+  border-radius: 6px;
+  margin: 10px;
+}
+
+.row {
+  width: 80%;
+  padding: 0 10px;  
+  /* display: flex; */
+  margin-left:10px ;
+  
+}
+/* .signup__name {
+  width: 100px;
+} */
+
+.signup__container button {
+  height: 45px;
+  width: 95%;
+  margin: 20px 0;
+  background-color: #516cf0;
+  border: 1px solid #3a59ef;
+  border-radius: 4px;
+  color: aliceblue;
+  font-size: 18px;
+}
+
+.signup__container button:hover {
+  background: #f17f04;
+  border: #fe8402;
+  cursor: pointer;
+  
+}
+
+.signup__about {
+  padding-top: 150px;
+  width: 100%;
+  padding-left: 40px;
+}
+#about {
+  color: #f88409;
+}
+.signup__about button {
+  background: #f17f04;
+  border: 1px solid #fe8402;
+  border-radius: 4px;
+  padding: 20px;
+  color: #fff;
+  /* width: 190px; */
+  /* margin */
+}
