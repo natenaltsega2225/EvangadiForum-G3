@@ -15,7 +15,7 @@ function Question() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await axios.post("http://localhost:5500/api/questions", {
+    const response = await axios.post("http://localhost:5500/api/question", {
       user_id: userData.user.id,
       question: form.brief,
       question_description: form.descr,
@@ -25,7 +25,7 @@ function Question() {
     navigate("/");
   };
   return (
-        <div className="question">
+    <div className="question">
       <hr />
       <div className="question__desc">
         <div className="question__steps m-5">

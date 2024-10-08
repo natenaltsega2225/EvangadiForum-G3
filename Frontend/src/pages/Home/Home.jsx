@@ -13,7 +13,7 @@ function Home({ logout }) {
     if (!userData.user) navigate("/login");
     const fetch = async () => {
   
-      const response = await axios.get("http://localhost:5500/api/questions");
+      const response = await axios.get("http://localhost:5500/api/question");
 
       setUserData({
         ...userData,

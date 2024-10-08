@@ -18,8 +18,9 @@ function Answer() {
       navigate("/login");
     }
     const fetch = async () => {
+      // setLoading(true);
       const response = await axios.post(
-        `http://localhost:5500/api/questions/id`,
+        `http://localhost:5500/api/question/id`,
         {
           post_id: userData.singleQuestion.post_id,
         }
@@ -27,12 +28,13 @@ function Answer() {
       // console.log(response);
       setPost(response.data.data);
     };
+    // setLoading(false);
     fetch();
   }, [userData.user]);
 
   useEffect(() => {
     const get = async () => {
-      const res = await axios.post(`http://localhost:5500/api/answers/all`, {
+      const res = await axios.post(`http://localhost:5500/api/answer/all`, {
         question_id: userData.singleQuestion.question_id,
       });
       console.log(res);
@@ -48,7 +50,7 @@ function Answer() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post(`http://localhost:5500/api/answers`, {
+    await axios.post(`http://localhost:5500/api/answer`, {
       answer: form.answer,
       userid: userData.user.id,
       questionid: post.question_id,
@@ -65,9 +67,8 @@ function Answer() {
   console.log(answer);
   console.log(post);
 
-  ;
   return (
-        <div className="answer">
+    <div className="answer">
       <hr />
       <div className="answer__conatiner">
         <h5> Question</h5>
