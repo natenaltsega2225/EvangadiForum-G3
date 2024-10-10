@@ -9,6 +9,7 @@ function Question() {
   const { question_id } = useParams();
   const [question, setQuestion] = useState(null);
   const [answers, setAnswers] = useState([]);
+  const [error, setError] = useState()
   const [submitted, setSubmitted] = useState(false);
 
   // const [newAnswer, setNewAnswer] = useState('');
@@ -92,7 +93,7 @@ function Question() {
       </div>
 
       <div className={styles.answerForm}>
-        <h3>Your Answer</h3>
+        {/* <h3>Your Answer</h3> */}
         <form onSubmit={handleAnswerSubmit}>
           {/* Submitted = true  && */}
           <textarea

@@ -1,10 +1,15 @@
 .questionFormContainer {
     padding: 20px;
     max-width: 600px;
-    margin: 0 auto;
-    margin-bottom: 130px;
+    margin: 60px auto 130px;
   }
-  
+  .questionFormContainer p{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    font-size: 18px;
+  }
   .questionFormHeader {
     font-size: 1.5rem;
     margin-bottom: 10px;
@@ -23,13 +28,16 @@
     display: block;
     margin-bottom: 5px;
   }
-  
+  .formGroup input[type="text"]{
+    margin-top: 10px;
+  }
   .formGroup input[type="text"],
   .formGroup textarea {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    outline: none;
   }
   
   .formGroup textarea {
@@ -44,6 +52,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition : all 0.3s ease;
   }
   
   .submitButton:hover {

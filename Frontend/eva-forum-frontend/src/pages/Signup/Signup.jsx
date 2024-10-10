@@ -79,18 +79,20 @@ function Signup() {
             placeholder="Username"
             required
           />
-          <input
-            ref={firstnameDom}
-            type="text"
-            placeholder="First Name"
-            required
-          />
-          <input
-            ref={lastnameDom}
-            type="text"
-            placeholder="Last Name"
-            required
-          />
+          <div className={classes.inputWrapper}>
+              <input
+              ref={firstnameDom}
+              type="text"
+              placeholder="First Name"
+              required
+            />
+            <input
+              ref={lastnameDom}
+              type="text"
+              placeholder="Last Name"
+              required
+            />
+          </div>
           <input
             ref={emailDom}
             type="email"
@@ -104,8 +106,8 @@ function Signup() {
             required
             minLength="8"
           />
-          <button type="submit" disabled={loading}>
-            {loading ? 'Registering...' : 'Register'}
+          <button type="submit" onClick={handleSubmit} disabled={loading}>
+            {loading ? 'Registering...' : 'REGISTER'}
           </button>
         </form>
 
@@ -114,25 +116,23 @@ function Signup() {
         </p>
       </div>
       <div className={`${classes.aboutBox} p-4`}>
-        <h3 className={classes.about}>About</h3>
+        <h2 className={classes.about}>About</h2>
         <p>
           <span className={classes.evangadiText}>
             Evangadi Networks <br />
           </span>
           <br />
           No matter what stage of life you are in, whether you’re just starting
-          elementary school or being promoted to CEO of a Fortune 500 company,
-          you have much to offer to those who are trying to follow in your
-          footsteps.
+          elementary school 
+          or being promoted to CEO of a Fortune 500 company, you have much to
+          offer to those 
+          who are trying to follow in your footsteps.
         </p>
         <br />
-        <p>
-          Whether you are willing to share your knowledge or you are just
-          looking to meet mentors of your own, please start by joining the
-          network here.
+        <p>Whether you are willing to share your knowledge or you are just looking to meet mentors of your own, please start by joining the network here.
         </p>
         <button
-          className="create-account-button btn btn-orange text-white"
+          className={classes.createAccountButton}
           onClick={handleCreateAccountClick}
           aria-label="Create a new account"
         >

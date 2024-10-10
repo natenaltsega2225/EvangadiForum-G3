@@ -45,18 +45,18 @@ function QuestionForm() {
   return (
     <div className={classes.questionFormContainer}>
       <h2 className={classes.questionFormHeader}>Steps To Write A Good Question.</h2>
-      {error && <p className={classes.errorMessage}>{error}</p>}
+      
       <p><FaCircleArrowRight size={20} /> Summarize your problems in one-line-title.</p>
       <p><FaCircleArrowRight size={20} /> Describe your problem in more detail.</p>
       <p><FaCircleArrowRight size={20} /> Describe what you tried & what you expected to happen.</p>
       <p><FaCircleArrowRight size={20} /> Review your question and post it here.</p>
 
       <br />
-             <h2>Post your Question </h2>
-
+            <h2>Post your Question </h2>
+            {error && <p className={classes.errorMessage}>{error}</p>}
       <form onSubmit={handleSubmit}>
         <div className={classes.formGroup}>
-          <label htmlFor="title">Question Title:</label>
+          {/* <label htmlFor="title">Question Title:</label> */}
           <input
           ref={titleDom}
             type="text"
@@ -70,9 +70,9 @@ function QuestionForm() {
 
 
         <div className={classes.formGroup}>
-          <label htmlFor="description">Question Description:</label>
+          {/* <label htmlFor="description">Question Description:</label> */}
           <textarea
-           ref={descriptionDom}
+            ref={descriptionDom}
             id="description"
             // value={description}
             // onChange={(e) => setDescription(e.target.value)}

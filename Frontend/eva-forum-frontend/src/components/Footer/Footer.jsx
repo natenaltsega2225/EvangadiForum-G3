@@ -9,7 +9,7 @@ function Footer() {
     <footer className={classes.footer}>
       <div className={classes.footerContainer}>
         <div className={classes.logo}>
-          <img src="/evangadi-logo.png" alt="Evangadi Logo" /> {/* Replace with the actual path */}
+          <img src="/Evangadi_white.png" alt="Evangadi Logo" /> {/* Replace with the actual path */}
           <br />
           <br />
           <FaFacebook  size={40}/>  <FaSquareInstagram size={40} /> <GrYoutube size={40} />

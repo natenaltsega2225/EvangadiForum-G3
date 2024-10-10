@@ -3,15 +3,19 @@ import axios from "../../axiosConfig";
 import { Link, useNavigate } from "react-router-dom";
 import { AppState } from "../../App";
 import classes from "./Login.module.css";
-
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa6";
 function Login() {
   const navigate = useNavigate();
   const { setUser } = useContext(AppState);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const passwordVisibility = () => {
+    setShowPassword(!showPassword);
+  }
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -27,7 +31,7 @@ function Login() {
     }
 
     setLoading(true);
-    setErrorMessage("");
+    setErrorMessage(null);
 
     try {
       const { data } = await axios.post("/users/login", {
@@ -39,7 +43,8 @@ function Login() {
       setUser({ username: data.username });
       navigate("/");
     } catch (error) {
-      setErrorMessage(error?.response?.data?.msg || "Login failed.");
+      console.log(error)
+      setErrorMessage("Login failed.");
     } finally {
       setLoading(false);
     }
@@ -53,7 +58,7 @@ function Login() {
     <div className={classes.centered_container}>
       <div className={`${classes.login_box}`}>
         <h2>Login to Your Account</h2>
-        {errorMessage && <p className={classes.errorMessage}>{errorMessage}</p>}
+        {errorMessage && <p style={{ marginBottom: "20px", color : "red"}}>{errorMessage}</p>}
         <form onSubmit={handleSubmit}>
           <div className={`${classes.formGroup}`}>
             <input
@@ -69,13 +74,20 @@ function Login() {
           <div className={`${classes.formGroup}`}>
             <input
               id="password"
-              type="password"
+              type={
+                showPassword ? "text" : "password"
+              }
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className={classes.input}
               required
             />
+          <span className={classes.eyes} onClick={passwordVisibility}>
+            {
+              showPassword ? <FaEye className={classes.activeEye} size={20}/> : <FaEyeSlash size={20}/>
+            }
+          </span>
           </div>
           <Link to="/forgot-password" className={classes.forgotPasswordLink}>
             Forgot password?
@@ -84,8 +96,9 @@ function Login() {
             type="submit"
             className={`${classes.loginButton}`}
             disabled={loading}
+            onClick={handleSubmit}
           >
-            {loading ? "Logging in..." : "LOGIN"}
+            {loading ? "Logging in..." : "LOG IN"}
           </button>
         </form>
         <p className={classes.register_link}>
@@ -100,23 +113,20 @@ function Login() {
         </p>
       </div>
       <div className={`${classes.about_box}`}>
-        <h3 className={classes.about}>About</h3>
+        <h2 className={classes.about}>About</h2>
         <p>
           <span className={classes.evangadi_text}>
             Evangadi Networks <br />
           </span>
           <br />
           No matter what stage of life you are in, whether you’re just starting
-          elementary school <br />
+          elementary school 
           or being promoted to CEO of a Fortune 500 company, you have much to
-          offer to those <br />
+          offer to those 
           who are trying to follow in your footsteps.
         </p>
         <br />
-        <p>
-          Whether you are willing to share your knowledge or you are just
-          looking to meet mentors <br /> of your own, please start by joining
-          the network here.
+        <p>Whether you are willing to share your knowledge or you are just looking to meet mentors of your own, please start by joining the network here.
         </p>
         <button
           className={classes.createAccountButton}

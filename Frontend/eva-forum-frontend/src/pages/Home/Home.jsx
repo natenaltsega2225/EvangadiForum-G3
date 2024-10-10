@@ -35,11 +35,11 @@ function Home() {
   return (
     <div className={classes.centeredContainer}>
       <div className={classes.header}>
-        {/* {
+        {
           // if user logged hi user else hide the h1 tag
-          user?  (  <h1>Welcome, {user.username}</h1>) : ""
-        } */}
-  {user && <h1>Welcome back, {user.username}!</h1>}
+          user?  (  <h1>Welcome, {user.username}</h1>) : null
+        }
+        {/* {user && <h1>Welcome, {user.username}!</h1>} */}
         <Link to="/ask-question">
           <button className={classes.askQuestionBtn}>
             Ask Question
@@ -56,6 +56,7 @@ function Home() {
         )}
         {questions?.map((question) => (
           <div key={question.id} className={classes.questionItem}>
+            
             <CgProfile size={50}/>
             <div className={classes.questionContent}>
               <Link to={`/question/${question.questionid}`}>

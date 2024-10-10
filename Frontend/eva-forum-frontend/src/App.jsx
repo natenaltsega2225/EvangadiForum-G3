@@ -38,7 +38,7 @@ function App() {
       <Header />
       
       <Routes>
-        <Route path="/" element={user ? <Home /> : <Navigate to="/login" />} />
+        <Route path="/" element={ <Home /> } />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Signup />} />
         <Route path="/question/:question_id" element={<Question />} />
