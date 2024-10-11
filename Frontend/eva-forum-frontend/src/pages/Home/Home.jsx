@@ -7,6 +7,7 @@ import { CgProfile } from "react-icons/cg";
 import { MdArrowForwardIos } from "react-icons/md";
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import { FaUserCircle } from "react-icons/fa";
+import TagSearch from "../../components/TaggedQuestions/TaggedQuestions";
 
 
 function Home() {
@@ -41,6 +42,11 @@ function Home() {
   }, []); // Empty dependency array means this runs once on mount
 
   return (
+
+    //Check Tagged questions
+
+    // End tagged questions
+
     <div className={classes.centeredContainer}>
       <div className={classes.header}>
       <Link to={user ? "/ask-question" : "/login"}>
@@ -50,8 +56,9 @@ function Home() {
         
       </div>
       <form class="form-inline my-2 my-lg-0" >
-      <input style={{width:"700px"}} class="form-control mr-sm-2" type="search" placeholder="Search question" aria-label="Search"/>
+      {/* <input style={{width:"700px"}} class="form-control mr-sm-2" type="search" placeholder="Search question" aria-label="Search"/> */}
     
+    <TagSearch/>
     </form>
       <div className={classes.userQuestions}>
       
@@ -66,8 +73,6 @@ function Home() {
         
             </div>
            
-
-
             <Link
               to={`/question/${question.questionid}`}
               className={classes.questionContent}

@@ -1,0 +1,11 @@
+{
+  "name": "evangadiforum-g3-sub-g3-2024",
+  "version": "1.0.0",
+  "description": "Hello and welcome to the Evangadi Forum, a Q&A platform designed and developed by Sub Group 3 of the April 2024 Batch Group 3.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
