@@ -12,9 +12,9 @@ const {
 } = require("../Controller/questionController");
 
 // Route to get all questions
-router.get("/", getAllQuestions);
+router.get("/", authMiddleware, getAllQuestions);
 // Route to get single question
-router.get("/:question_id", getSingleQuestion);
+router.get("/:question_id", authMiddleware, getSingleQuestion);
 // Route to post question
 router.post("/", authMiddleware, postQuestion);
 

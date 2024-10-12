@@ -1,24 +1,14 @@
-.Wrapper{
-  position: sticky;
-  z-index: 100;
-  top: 0;
-  background-color: #fff;
-  border-bottom: 1px solid #ddd;
-  box-shadow: 0 2px 4px rgba(0, 0, 0,0.2);
-
-}
-
 .headerContainer {
   display: flex;
-  max-width: 1400px;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
-  padding: 15px 30px; 
-  margin: 0 auto;
+  padding: 15px 30px;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
 }
 
 .logo img {
-  height: 30px;
+  height: 40px;
 }
 
 .navLinks {
@@ -40,17 +30,8 @@
   border-radius: 5px;
   cursor: pointer;
   margin-left: 10px
-  
 }
 
 .authButton button:hover {
   background-color: #357ab8;
- 
-}
-.authButton button:focus{
-  border: none;
-}
-
-@media screen {
-  
 }
