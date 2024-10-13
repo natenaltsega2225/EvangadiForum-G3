@@ -1,73 +1,102 @@
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AppState } from "../../App";
 import { Link } from "react-router-dom";
-import axios from "../../axiosConfig";
+import axiosBase from "../../axiosConfig";
 import classes from "./Home.module.css";
-//import PersonIcon from '@mui/icons-material/Person';
-import { CgProfile } from "react-icons/cg";
+import { MdArrowForwardIos } from "react-icons/md";
+import { FaUserCircle } from "react-icons/fa";
+import TagSearch from "../../components/TaggedQuestions/TaggedQuestions";
+
 function Home() {
   const { user } = useContext(AppState);
   const [questions, setQuestions] = useState([]);
-  const [loading, setLoading] = useState(true); // State to track loading
-  const [error, setError] = useState(null); // State for error handling
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [sortMethod, setSortMethod] = useState("id");
 
   useEffect(() => {
     const fetchQuestions = async () => {
-      setLoading(true); // Set loading to true when starting to fetch
-      setError(null); // Reset any previous errors
+      setLoading(true);
+      setError(null);
 
-      //  const questionList =
       try {
-        const response = await axios.get(`/question`);
-        console.log(response.data)
+        const response = await axiosBase.get(`/question`);
         setQuestions(response.data.questions);
       } catch (error) {
         console.error("Error fetching questions", error);
-        setError("Failed to load questions. Please try again later."); // Set error message
+        setError("Failed to load questions. Please try again later.");
       } finally {
-        setLoading(false); // Set loading to false after fetching
+        setLoading(false);
       }
     };
 
     fetchQuestions();
   }, []);
 
+  const sortQuestions = (questions, method) => {
+    if (method === "id") {
+      return [...questions].sort((a, b) => b.id - a.id);
+    } else if (method === "title") {
+      return [...questions].sort((a, b) => a.title.localeCompare(b.title));
+    }
+    return questions;
+  };
+
+  const handleSortChange = (e) => {
+    setSortMethod(e.target.value);
+  };
+
+  const sortedQuestions = sortQuestions(questions, sortMethod);
+
   return (
     <div className={classes.centeredContainer}>
       <div className={classes.header}>
-        {/* {
-          // if user logged hi user else hide the h1 tag
-          user?  (  <h1>Welcome, {user.username}</h1>) : ""
-        } */}
-  {user && <h1>Welcome back, {user.username}!</h1>}
-        <Link to="/ask-question">
-          <button className={classes.askQuestionBtn}>
-            Ask Question
-          </button>
+        <Link to={user ? "/ask-question" : "/login"}>
+          <button className={classes.askQuestionBtn}>Ask Question</button>
         </Link>
-      </div>
-          
-      <div className={classes.userQuestions}>
-        <h2>Your Questions</h2>
-        {loading && <p>Loading questions...</p>} {/* Display loading text */}
-        {error && <p style={{ color: "red" }}>{error}</p>} {/* Display error message */}
-        {questions.length === 0 && !loading && ( // Only show this if not loading
-          <p>You haven't asked any questions yet.</p>
+        {user && (
+          <h5>
+            Welcome : <span style={{ color: "#fb8402" }}>{user.username}</span>
+          </h5>
         )}
-        {questions?.map((question) => (
-          <div key={question.id} className={classes.questionItem}>
-            <CgProfile size={50}/>
-            <div className={classes.questionContent}>
-              <Link to={`/question/${question.questionid}`}>
-                <h3>{question.title}</h3>
-              </Link>
-              {/* <p>{question.description}</p> */}
+      </div>
+      <form className="form-inline my-2 my-lg-0">
+        <TagSearch />
+      </form>
+      <div className={classes.sortContainer}>
+        <label htmlFor="sort-select">Sort results by: </label>
+        <select
+          id="sort-select"
+          value={sortMethod}
+          onChange={handleSortChange}
+          className={classes.sortSelect}
+        >
+          <option value="id">Most Recent</option>
+          <option value="title">Title (A-Z)</option>
+        </select>
+      </div>
+      <div className={classes.userQuestions}>
+        {loading && <p>Loading questions...</p>}
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        {sortedQuestions.map((question) => (
+          <div key={question.questionid} className={classes.questionItem}>
+            <div>
+              <FaUserCircle size={60} />
+              <p>{question.username}</p>
             </div>
+            <Link
+              to={`/question/${question.questionid}`}
+              className={classes.questionContent}
+            >
+              <p style={{ textAlign: "left", width: "100%" }}>
+                {question.title}
+              </p>
+              <MdArrowForwardIos size={40} color="#000" />
+            </Link>
           </div>
         ))}
       </div>
     </div>
-   
   );
 }
 
