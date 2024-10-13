@@ -1,0 +1,113 @@
+.centered-container {
+  display: flex; 
+  justify-content: space-between; 
+  align-items: flex-start; 
+  /* width: 1236px; Set the overall width
+  height: 526px; Set the overall height */
+  margin: auto; 
+}
+
+.login-box {
+  width: 610px; 
+  height: 509px; 
+  padding: 20px;
+  border: 1px solid #ccc; 
+  border-radius: 10px; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+}
+
+.about-box {
+  width: 605px;
+  height: 200px; 
+  padding: 20px; 
+  margin-left: 20px; 
+}
+
+.about-box h3,
+.login-box h2 {
+  text-align: center; 
+}
+
+.about-box p {
+  margin: 10px 0; 
+}
+
+.create-account-button {
+  display: block; 
+  text-align: center; 
+  margin-top: 20px; 
+  background-color: #ffAB02; 
+  color: white;
+  padding: 10px 15px; 
+  border-radius: 5px;
+  text-decoration: none; 
+}
+
+.create-account-button:hover {
+  background-color: #0056b3; 
+}
+
+h2 {
+  padding-top: 15px;
+  margin: 5px;
+}
+
+.register-link {
+  padding-bottom: 15px;
+  
+  color: rgb(255, 171, 2); 
+  text-decoration: none; 
+}
+
+.register-link:hover {
+  text-decoration: underline; 
+}
+
+.black-text {
+  color: black; 
+}
+
+.highlight-text {
+  color: rgb(255, 171, 2); 
+}
+
+.forgot-password-link {
+  color: rgb(255, 171, 2);
+  margin-right: 425px;
+  text-decoration: none;
+}
+
+.forgot-password-link:hover {
+  text-decoration: underline; 
+}
+
+.form-group {
+  margin-bottom: 15px;
+  width: 100%; 
+}
+
+input {
+  width: 100%; 
+  height: 49px; 
+  padding: 10px; 
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box; 
+}
+
+.login-button {
+  margin-top: 142px;
+  width: 100%; 
+  height: 49px; 
+  padding: 10px; 
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: #0056b3; 
+}

@@ -67,8 +67,8 @@ function App() {
         <Route path="/signup" element={<Signup />} /> */}
 
           {/* Authentication route that uses the AuthContainer */}
-          <Route path="/login" element={<AuthContainer initialForm="login" />} />
-          <Route path="/signup" element={<AuthContainer initialForm="signup" />} />
+          <Route path="/login" element={<AuthContainer initialForm="Login" />} />
+          <Route path="/signup" element={<AuthContainer initialForm="Signup" />} />
 
         {/* Information page about how the application works */}
         <Route path="/how-it-works" element={<Features />} />
