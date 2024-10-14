@@ -1,9 +1,9 @@
-import { useParams, useNavigate } from 'react-router-dom'; 
-import { useEffect, useState, useRef, useContext } from 'react';
-import axios from '../../axiosConfig';
+import { useParams, useNavigate } from "react-router-dom";
+import { useEffect, useState, useRef, useContext } from "react";
+import axios from "../../axiosConfig";
 import { FaCircleArrowRight } from "react-icons/fa6";
-import styles from './Question.module.css';
-import { AppState } from '../../App'; // Import user state
+import styles from "./Question.module.css";
+import { AppState } from "../../App"; // Import user state
 
 function Question() {
   const { user } = useContext(AppState); // Get the user state
@@ -12,6 +12,7 @@ function Question() {
   const [question, setQuestion] = useState(null);
   const [answers, setAnswers] = useState([]);
   const answerDom = useRef(null);
+  // const tagDom=useRef(null);
 
   useEffect(() => {
     const fetchQuestionAndAnswers = async () => {
@@ -22,7 +23,7 @@ function Question() {
         const answerResponse = await axios.get(`/answer/${question_id}`);
         setAnswers(answerResponse.data.answers);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     };
 
@@ -32,6 +33,7 @@ function Question() {
   const handleAnswerSubmit = async (e) => {
     e.preventDefault();
     const answerValue = answerDom.current.value;
+    // const tagValue=tagDom.current.value;
 
     if (!answerValue) return;
 
@@ -42,26 +44,35 @@ function Question() {
     }
 
     try {
-      await axios.post('/answer', { questionid: question_id, answer: answerValue }, {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-      });
+      await axios.post(
+        "/answer",
+        { questionid: question_id, answer: answerValue },
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      );
 
-      answerDom.current.value = '';
+      answerDom.current.value = "";
+      // tagDom.current.value='';
+
       const updatedAnswers = await axios.get(`/answer/${question_id}`);
       setAnswers(updatedAnswers.data.answers);
+      console.log(updatedAnswers.data.answers);
     } catch (error) {
-      console.error('Error posting answer:', error);
+      console.error("Error posting answer:", error);
     }
   };
 
   return (
     <div className={styles.questionPageContainer}>
       <h1 className={styles.questionTitle}>QUESTION</h1>
-       
+
       <div className={styles.questionDetail}>
         {question ? (
           <>
-            <p><FaCircleArrowRight size={20} /> {question.title}</p>
+            <p>
+              <FaCircleArrowRight size={20} /> {question.title}
+            </p>
             <p>{question.description}</p>
           </>
         ) : (
@@ -74,7 +85,9 @@ function Question() {
         {answers.length > 0 ? (
           answers.map((answer) => (
             <div key={answer.answerid} className={styles.answer}>
-              <p><strong>{answer.username}</strong></p>
+              <p>
+                <strong>{answer.username}</strong>
+              </p>
               <p>{answer.answer}</p>
             </div>
           ))
@@ -91,6 +104,7 @@ function Question() {
             ref={answerDom}
             placeholder="Your answer..."
           />
+
           <button type="submit" className={styles.submitButton}>
             Post Answer
           </button>

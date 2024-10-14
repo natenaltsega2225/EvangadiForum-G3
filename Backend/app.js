@@ -11,7 +11,7 @@ const dbConnection = require("./Database/dbConfig"); // DB connection
 const userRoutes = require("./Route/userRoute");
 const questionRoutes = require("./Route/questionRoute");
 const answerRoutes = require("./Route/answerRoute");
-const tagRoutes = require("./Route/tagRoute");
+const tagRoutes = require("./Route/tagRoute"); //included this line to route tagged questions by MA on 10/13/24
 
 // const tagRouter = require("./path/to/your/tagController");
 // app.use("/questions", tagRouter);

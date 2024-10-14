@@ -1,24 +1,25 @@
-import React, {useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import axios from "../../axiosConfig";
 import { useNavigate } from "react-router-dom";
 import classes from "./questionForm.module.css";
 import { FaCircleArrowRight } from "react-icons/fa6";
 
-
 function QuestionForm() {
-
   // const [title, setTitle] = useState("");
   // const [description, setDescription] = useState("");
   const [error, setError] = useState(null);
   const titleDom = useRef();
-  const descriptionDom = useRef(); 
+  const descriptionDom = useRef();
   const navigate = useNavigate();
+  const tagDom = useRef();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const titleValue = titleDom.current.value;
     const descriptionValue = descriptionDom.current.value;
-    console.log(titleValue)
+    const tagValue = tagDom.current.value;
+
+    console.log(titleValue);
     if (!titleValue || !descriptionValue) {
       setError("Please fill out both fields.");
       return;
@@ -26,15 +27,20 @@ function QuestionForm() {
 
     try {
       const token = localStorage.getItem("token");
-      await axios.post("/question", {
-        title:titleValue,
-        description:descriptionValue
-      }, {
-        headers: {
-          Authorization: `Bearer ${token}`
+      await axios.post(
+        "/question",
+        {
+          title: titleValue,
+          description: descriptionValue,
+          tag: tagValue,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-      });
-      alert('Your question is posted.');
+      );
+      alert("Your question is posted.");
       navigate("/");
     } catch (error) {
       console.error("Error posting question:", error);
@@ -44,21 +50,33 @@ function QuestionForm() {
 
   return (
     <div className={classes.questionFormContainer}>
-      <h2 className={classes.questionFormHeader}>Steps To Write A Good Question.</h2>
+      <h2 className={classes.questionFormHeader}>
+        Steps To Write A Good Question.
+      </h2>
       {error && <p className={classes.errorMessage}>{error}</p>}
-      <p><FaCircleArrowRight size={20} /> Summarize your problems in one-line-title.</p>
-      <p><FaCircleArrowRight size={20} /> Describe your problem in more detail.</p>
-      <p><FaCircleArrowRight size={20} /> Describe what you tried & what you expected to happen.</p>
-      <p><FaCircleArrowRight size={20} /> Review your question and post it here.</p>
+      <p>
+        <FaCircleArrowRight size={20} /> Summarize your problems in
+        one-line-title.
+      </p>
+      <p>
+        <FaCircleArrowRight size={20} /> Describe your problem in more detail.
+      </p>
+      <p>
+        <FaCircleArrowRight size={20} /> Describe what you tried & what you
+        expected to happen.
+      </p>
+      <p>
+        <FaCircleArrowRight size={20} /> Review your question and post it here.
+      </p>
 
       <br />
-             <h2>Post your Question </h2>
+      <h2>Post your Question </h2>
 
       <form onSubmit={handleSubmit}>
         <div className={classes.formGroup}>
           {/* <label htmlFor="title"></label> */}
           <input
-          ref={titleDom}
+            ref={titleDom}
             type="text"
             id="title"
             // value={title}
@@ -67,12 +85,10 @@ function QuestionForm() {
           />
         </div>
 
-
-
         <div className={classes.formGroup}>
           {/* <label htmlFor="description"></label> */}
           <textarea
-           ref={descriptionDom}
+            ref={descriptionDom}
             id="description"
             // value={description}
             // onChange={(e) => setDescription(e.target.value)}
@@ -80,14 +96,23 @@ function QuestionForm() {
           />
         </div>
 
+        <div className={classes.formGroup}>
+          <input
+            ref={tagDom}
+            type="text"
+            id="tag"
+            // value={description}
+            // onChange={(e) => setDescription(e.target.value)}
+            placeholder="Enter tags (keywords) separated by a comma and no spaces"
+          />
+        </div>
 
-
-        <button className={classes.submitButton} type="submit">Post Question</button>
+        <button className={classes.submitButton} type="submit">
+          Post Question
+        </button>
         <br />
         <br />
-      
       </form>
-    
     </div>
   );
 }

@@ -22,7 +22,7 @@ const TagSearch = () => {
       setQuestions(response.data);
       console.log(response.data);
     } catch (err) {
-      setError("An error occurred while fetching questions. Please try again.");
+      setError("An error occurred while fetching questions by keywords (tags). Please try again.");
       console.error("Error fetching questions:", err);
     } finally {
       setIsLoading(false);
@@ -38,7 +38,7 @@ const TagSearch = () => {
             value={tags}
             type="text"
             onChange={(e) => setTags(e.target.value)}
-            placeholder="Enter tags (comma-separated) question"
+            placeholder="Enter keywords or tags (comma-separated) of a question"
             aria-label="Search"
           />
           <button

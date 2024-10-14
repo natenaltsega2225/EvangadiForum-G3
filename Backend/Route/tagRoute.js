@@ -1,3 +1,4 @@
+// Route for tagged questions added by MA on 10/13/2024
 const express = require("express");
 const router = express.Router();
 const { getTaggedQuestions } = require("../Controller/tagController.js");

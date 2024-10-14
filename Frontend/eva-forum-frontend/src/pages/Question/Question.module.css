@@ -50,6 +50,10 @@
   resize: none; /* Prevent resizing */
 }
 
+.answerTextarea:focus{
+ background-color: rgb(248, 233, 201);
+}
+
 .submitButton {
   padding: 10px 20px;
   background-color: #4a90e2;

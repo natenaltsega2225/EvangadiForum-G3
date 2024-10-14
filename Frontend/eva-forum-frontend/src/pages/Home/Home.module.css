@@ -1,3 +1,5 @@
+/* CSS file modified on 10/13/24 by MA */
+
 /* Centering */
 .center-horizontal {
   margin: 0 auto;
@@ -68,14 +70,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  
 }
 
-.questionContent p{
+.questionContent p {
   margin: 0;
   font-size: 18px;
 }
-
 
 .questionContent p {
   margin: 5px 0;
@@ -88,7 +88,23 @@
 .questionContent a:hover {
   text-decoration: none;
 }
-a:hover{
+a:hover {
   text-decoration: none;
-  
+}
+
+.sortContainer {
+  margin-bottom: 1rem;
+}
+
+.sortSelect {
+  margin-left: 0.5rem;
+  padding: 0.25rem;
+  width: 100%;
+}
+
+.sortContainer select {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  padding: 10px 20px;
 }
