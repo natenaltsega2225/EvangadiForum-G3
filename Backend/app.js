@@ -5,7 +5,6 @@ const port = 5500;
 
 const cors = require('cors')
 app.use(cors())
-
 const dbConnection = require("./Database/dbConfig");  // DB connection
 // User routes middleware file
 const userRoutes = require("./Route/userRoute");
@@ -13,13 +12,10 @@ const questionRoutes = require("./Route/questionRoute");
 const answerRoutes = require("./Route/answerRoute");
 // JSON middleware to extract json data
 app.use(express.json());
-
 // User route middleware
 app.use("/api/users", userRoutes);
-
 // Questions route middleware
 app.use("/api/question", questionRoutes)
-
 // Answers route middleware
 app.use("/api/answer", answerRoutes);
 

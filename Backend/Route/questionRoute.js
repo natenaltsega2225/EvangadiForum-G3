@@ -1,16 +1,13 @@
 const express = require("express");
 const router = express.Router();
-
 // Authentication middleware
 const authMiddleware = require("../MiddleWare/authMiddleware");
-
 // Question controllers
 const {
     getAllQuestions,
     getSingleQuestion,
     postQuestion,
 } = require("../Controller/questionController");
-
 // Route to get all questions
 router.get("/", getAllQuestions);
 // Route to get single question
