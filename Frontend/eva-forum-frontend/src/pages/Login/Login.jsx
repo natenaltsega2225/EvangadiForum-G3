@@ -58,90 +58,74 @@ function Login({toggleForm}) {
   };
 
   return (
-    <div className={classes.centered_container}>
-      <div className={`${classes.login_box}`}>
-        <h2>Login to Your Account</h2>
-        {errorMessage && <p style={{ marginBottom: "20px", color : "red"}}>{errorMessage}</p>}
-        <form onSubmit={handleSubmit}>
-          <div className={`${classes.formGroup}`}>
-            <input
-              id="email"
-              type="email"
-              placeholder="Email address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className={classes.input}
-              required
-            />
-          </div>
-          <div className={`${classes.formGroup}`}>
-            <input
-              id="password"
-              type={
-                showPassword ? "text" : "password"
-              }
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className={classes.input}
-              required
-            />
-          <span className={classes.eyes} onClick={passwordVisibility}>
-            {
-              showPassword ? <FaEye className={classes.activeEye} size={20}/> : <FaEyeSlash size={20}/>
-            }
-          </span>
-          </div>
-          <Link to="/forgot-password" className={classes.forgotPasswordLink}>
-            Forgot password?
-          </Link>
-          <button
-            type="submit"
-            className={`${classes.loginButton}`}
-            disabled={loading}
-            onClick={handleSubmit}
-          >
-            {loading ? "Logging in..." : "LOGIN"}
-          </button>
-        </form>
-        <p className={classes.register_link}>
-          Don't have an account?{" "}
-          <span
-            className={classes.highlightText}
-            role="button"
-            onClick={toggleForm}
-          >
-            Create a new account
-          </span>
-        </p>
-      </div>
-
-      
-      {/* <div className={`${classes.about_box}`}>
-        <h2 className={classes.about}>About</h2>
-        <p>
-          <span className={classes.evangadi_text}>
-            Evangadi Networks <br />
-          </span>
+    <section className={classes.Login_Wrapper}>
+      <div className={classes.centered_container}>
+        <div className={`${classes.login_box}`}>
+          <h5>Login to Your Account</h5>
           <br />
-          No matter what stage of life you are in, whether you’re just starting
-          elementary school 
-          or being promoted to CEO of a Fortune 500 company, you have much to
-          offer to those 
-          who are trying to follow in your footsteps.
-        </p>
-        <br />
-        <p>Whether you are willing to share your knowledge or you are just looking to meet mentors of your own, please start by joining the network here.
-        </p>
-        <button
-          className={classes.createAccountButton}
-          onClick={handleCreateAccountClick}
-          aria-label="Create a new account"
-        >
-          CREATE A NEW ACCOUNT
-        </button>
-      </div> */}
-    </div>
+          <h6>
+            Don’t have an account?{" "}
+            <span className={classes.create}>Create a new account</span>
+          </h6>
+          <br />
+          {errorMessage && (
+            <p style={{ marginBottom: "20px", color: "red" }}>{errorMessage}</p>
+          )}
+          <form onSubmit={handleSubmit}>
+            <div className={`${classes.formGroup}`}>
+              <input
+                id="email"
+                type="email"
+                placeholder="Email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className={classes.input}
+                required
+              />
+            </div>
+            <div className={`${classes.formGroup}`}>
+              <input
+                id="password"
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className={classes.input}
+                required
+              />
+              <span className={classes.eyes} onClick={passwordVisibility}>
+                {showPassword ? (
+                  <FaEye className={classes.activeEye} size={20} />
+                ) : (
+                  <FaEyeSlash size={20} />
+                )}
+              </span>
+            </div>
+            <Link to="/forgot-password" className={classes.forgotPasswordLink}>
+              Forgot password?
+            </Link>
+            <button
+              type="submit"
+              className={`${classes.loginButton}`}
+              disabled={loading}
+              onClick={handleSubmit}
+            >
+              {loading ? "Logging in..." : "LOGIN"}
+            </button>
+          </form>
+          <p className={classes.register_link}>
+            {/* Don't have an account?{" "} */}
+            {/* <span
+              className={classes.highlightText}
+              role="button"
+              onClick={toggleForm}
+            >
+              Create a new account
+            </span> */}
+          </p>
+        </div>
+      </div>
+    </section>
   );
 }
 
