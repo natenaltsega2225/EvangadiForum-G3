@@ -56,7 +56,7 @@ function Signup({toggleForm}) {
         email: emailValue,
         password: passValue,
       });
-      alert('Registration was successful. Please login.');
+      alert('Registration was successful. Please login.')
       toggleForm()
     } catch (error) {
       setError(error?.response?.data?.msg || 'Something went wrong, please try again.');
