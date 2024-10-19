@@ -37,6 +37,7 @@ function Question() {
   const handleAnswerSubmit = async (e) => {
     e.preventDefault();
     const answerValue = answerDom.current.value;
+     
 
     if (!answerValue) return;
 
@@ -66,6 +67,8 @@ function Question() {
 
       answerDom.current.value = '';
       const updatedAnswers = await axios.get(`/answer/${question_id}`);
+      alert("your answer is posted successfully");
+      
       setAnswers(updatedAnswers.data.answers);
       console.log(updatedAnswers);
     } catch (error) {

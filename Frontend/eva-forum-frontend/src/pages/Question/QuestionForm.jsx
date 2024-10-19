@@ -64,12 +64,9 @@ function QuestionForm() {
   return (
     <div className={classes.questionFormContainer}>
     
-
       <h2 className={classes.questionFormHeader}>Steps To Write A Good Question.</h2>
       
       {error && <p className={classes.errorMessage}>{error}</p>}
-      
-      
       
       <p><FaCircleArrowRight size={20} /> Summarize your problems in one-line-title.</p>
       <p><FaCircleArrowRight size={20} /> Describe your problem in more detail.</p>

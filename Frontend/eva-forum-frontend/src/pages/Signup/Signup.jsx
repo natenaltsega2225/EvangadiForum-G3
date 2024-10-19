@@ -83,16 +83,20 @@ function Signup({toggleForm}) {
       <div className={`${classes.signupBox}`}>
         <h4>Join the Network</h4>
         <p className={classes.loginLink}>
-        Already have an account?
-      
-          <span className={classes.highlightText} role="button" onClick={toggleForm}>Sign in</span>
-
-
+          Already have an account?
+          <span
+            className={classes.highlightText}
+            role="button"
+            onClick={toggleForm}
+          >
+            Sign in
+          </span>
         </p>
         {error && <p className={classes.errorMessage}>{error}</p>}
 
         <form onSubmit={handleSubmit} className={classes.signupForm}>
-          <input className={classes.input}
+          <input
+            className={classes.input}
             ref={usernameDom}
             type="text"
             placeholder="Username"
@@ -113,12 +117,7 @@ function Signup({toggleForm}) {
               required
             />
           </div>
-          <input
-            ref={emailDom}
-            type="email"
-            placeholder="Email"
-            required
-          />
+          <input ref={emailDom} type="email" placeholder="Email" required />
           <div className={classes.passwordWrapper}>
             <input
               ref={passwordDom}
@@ -128,17 +127,41 @@ function Signup({toggleForm}) {
               minLength="8"
             />
             <span className={classes.eyes} onClick={passwordVisibility}>
-              {showPassword ? <FaEye className={classes.activeEye} size={20}/> : <FaEyeSlash size={20}/>}
+              {showPassword ? (
+                <FaEye className={classes.activeEye} size={20} />
+              ) : (
+                <FaEyeSlash size={20} />
+              )}
             </span>
           </div>
-          <p>I agree to the <a href="" style={{color:"#fb8402"}}>privacy policy</a> and <a href="" style={{color:"#fb8402"}}>terms of service.</a></p>
+          <p>
+            I agree to the{" "}
+            <a
+              href="https://www.evangadi.com/legal/privacy/"
+              style={{ color: "#fb8402" }}
+            >
+              privacy policy
+            </a>{" "}
+            and{" "}
+            <a
+              href="https://www.evangadi.com/legal/terms/"
+              style={{ color: "#fb8402" }}
+            >
+              terms of service.
+            </a>
+          </p>
           <button type="submit" disabled={loading}>
-            {loading ? 'Registering...' : 'Agree and Join'}
+            {loading ? "Registering..." : "Agree and Join"}
           </button>
         </form>
 
-        <p style={{color:"#fb8402"}} role="button" onClick={toggleForm} className={classes.loginLink}>
-          Already have an account? 
+        <p
+          style={{ color: "#fb8402" }}
+          role="button"
+          onClick={toggleForm}
+          className={classes.loginLink}
+        >
+          Already have an account?
         </p>
       </div>
     </div>

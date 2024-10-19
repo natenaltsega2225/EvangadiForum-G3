@@ -8,6 +8,7 @@ import { AppState } from "../../App";
 import classes from "./Login.module.css";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa6";
+
 function Login({toggleForm}) {
   const navigate = useNavigate();
   const { setUser } = useContext(AppState);
