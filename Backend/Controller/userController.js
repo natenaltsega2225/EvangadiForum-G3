@@ -66,7 +66,9 @@ async function login(req, res) {
         // Generating token
         const username = user[0].username; // Extract username
         const userid = user[0].userid; // Extract user ID
-        const token = jwt.sign({ username, userid }, process.env.JWT_SECRET, { expiresIn: "30d" }); // Create JWT token
+        const token = jwt.sign({ username, userid }, process.env.JWT_SECRET, {
+          expiresIn: "30d",
+        }); // Create JWT token
         return res.status(StatusCodes.OK).json({ msg: "Logged in successfully", token: token, username: username }); // Success response with token
     } catch (error) {
         console.log(error.message); // Log error for debugging

@@ -11,7 +11,6 @@ const dbConnection = require("./Database/dbConfig");  // DB connection
 const userRoutes = require("./Route/userRoute");
 const questionRoutes = require("./Route/questionRoute");
 const answerRoutes = require("./Route/answerRoute");
-
 const tagRoutes = require("./Route/tagRoute");
 // JSON middleware to extract json data
 app.use(express.json());

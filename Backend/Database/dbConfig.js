@@ -4,7 +4,7 @@ const mysql2 = require('mysql2/promise'); // Use promise-based version
 const dbConnection = mysql2.createPool({
   user: process.env.USER,
   database:process.env.DATABASE ,
-  host: process.env.HOST,
+  host: "localhost",
   password: process.env.PASSWORD,
   connectionLimit: 10
 });
